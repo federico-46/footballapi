@@ -9,7 +9,7 @@ export default async function Scoreboard({
   searchParams: { date?: string };
 }) {
   const selectedDate =
-    searchParams.date || new Date().toISOString().split("T")[0];
+    searchParams?.date || new Date().toISOString().split("T")[0];
   const res = await fetch(
     `https://v3.football.api-sports.io/fixtures?date=${selectedDate}&season=2024&timezone=Europe%2FLondon`,
     {
