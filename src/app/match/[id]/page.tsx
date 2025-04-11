@@ -98,7 +98,11 @@ export default async function MatchDetail({ params }: any) {
 
   const formatTime = (iso: string | number | Date) => {
     const date = new Date(iso);
-    return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    return date.toLocaleTimeString([], {
+      timeZone: "Europe/Rome",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
   };
 
   const sortedEvents = [...events].sort(
