@@ -62,7 +62,11 @@ const groupMatchesByCountry = (matches: Match[]) => {
  */
 const formatTime = (iso: string): string => {
   const date = new Date(iso);
-  return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+  return date.toLocaleTimeString([], {
+    timeZone: "Europe/Rome",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 };
 
 export default async function Scoreboard({ searchParams }: Props) {
