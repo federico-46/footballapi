@@ -359,6 +359,7 @@ export default async function MatchDetail({ params }: any) {
               <p>
                 {new Date(fixture.date).toLocaleDateString()} -{" "}
                 {new Date(fixture.date).toLocaleTimeString([], {
+                  timeZone: "Europe/Rome",
                   hour: "2-digit",
                   minute: "2-digit",
                 })}
