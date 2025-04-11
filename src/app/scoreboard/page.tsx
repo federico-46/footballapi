@@ -75,7 +75,7 @@ export default async function Scoreboard({ searchParams }: Props) {
 
   try {
     const res = await fetch(
-      `https://v3.football.api-sports.io/fixtures?date=${selectedDate}&season=2024&timezone=Europe%2FLondon`,
+      `https://v3.football.api-sports.io/fixtures?date=${selectedDate}&season=2024&timezone=Europe%2FRome`,
       {
         method: "GET",
         headers: {
