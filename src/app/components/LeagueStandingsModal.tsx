@@ -2,13 +2,19 @@
 
 import { useEffect, useState } from "react";
 
+type LeagueStandingsModalProps = {
+  leagueName: string;
+  leagueId: number;
+  trigger: React.ReactNode;
+};
+
 export default function LeagueStandingsModal({
   leagueName,
   leagueId,
   trigger,
-}) {
+}: LeagueStandingsModalProps) {
   const [open, setOpen] = useState(false);
-  const [standings, setStandings] = useState([]);
+  const [standings, setStandings] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {

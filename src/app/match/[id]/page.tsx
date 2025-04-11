@@ -1,6 +1,4 @@
-import Image from "next/image";
 import Link from "next/link";
-import PreMatchStats from "../../components/PreMatchStats";
 import OverviewComparison from "../../components/OverviewComparison";
 import TeamComparisonSummary from "../../components/TeamComparisonSummary";
 import HeadToHeadStats from "../../components/H2HStats";
@@ -12,7 +10,7 @@ import MatchPrediction from "../../components/MatchPrediction";
 import MatchStatistics from "../../components/MatchStatistics";
 import MatchOdds from "../../components/OddsPreMatch";
 
-export default async function MatchDetail({ params }) {
+export default async function MatchDetail({ params }: any) {
   const { id } = params;
 
   const [matchRes, eventsRes] = await Promise.all([
@@ -98,7 +96,7 @@ export default async function MatchDetail({ params }) {
   const h2hData = await h2hRes.json();
   const h2hMatches = h2hData.response || [];
 
-  const formatTime = (iso) => {
+  const formatTime = (iso: string | number | Date) => {
     const date = new Date(iso);
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
@@ -110,7 +108,7 @@ export default async function MatchDetail({ params }) {
   const firstHalfEvents = sortedEvents.filter((e) => e.time.elapsed <= 45);
   const secondHalfEvents = sortedEvents.filter((e) => e.time.elapsed > 45);
 
-  const renderTimeline = (filteredEvents) => (
+  const renderTimeline = (filteredEvents: any[]) => (
     <div className="flex flex-col gap-2">
       {filteredEvents.map((event, index) => {
         const isHomeTeam = event.team.id === teams.home.id;
@@ -267,7 +265,7 @@ export default async function MatchDetail({ params }) {
         </div>
         {/* Goal Summary */}
         {events.some(
-          (e) =>
+          (e: { type: string; detail: string }) =>
             e.type === "Goal" &&
             (e.detail === "Normal Goal" || e.detail === "Penalty")
         ) && (
