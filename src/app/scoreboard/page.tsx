@@ -67,7 +67,6 @@ const formatTime = (iso: string): string => {
 
 export default async function Scoreboard({ searchParams }: Props) {
   // Seleziona la data: usa quella passata via query o la data corrente.
-
   const resolvedSearchParams = await searchParams;
   const selectedDate =
     typeof resolvedSearchParams?.date === "string"
@@ -94,6 +93,11 @@ export default async function Scoreboard({ searchParams }: Props) {
     const data = await res.json();
     const groupedByCountry = groupMatchesByCountry(data.response);
 
+    // Ordina alfabeticamente i gruppi per nazione
+    const sortedCountries = Object.entries(groupedByCountry).sort((a, b) =>
+      a[0].localeCompare(b[0])
+    );
+
     return (
       <div className="max-w-5xl mx-auto p-6">
         <div className="flex items-center justify-between flex-wrap gap-4 mb-6 bg-white p-4 rounded-xl shadow">
@@ -105,9 +109,13 @@ export default async function Scoreboard({ searchParams }: Props) {
 
         <div className="h-[700px] overflow-y-auto bg-gray-50 border border-gray-200 rounded-xl p-6 shadow-lg">
           <div className="flex flex-col gap-2">
-            {Object.entries(groupedByCountry).map(([country, leagues]) => {
+            {sortedCountries.map(([country, leagues]) => {
               // Prendi un match di esempio per mostrare la bandiera
               const sampleMatch = Object.values(leagues)[0][0];
+              // Ordina alfabeticamente le leghe all'interno del gruppo
+              const sortedLeagues = Object.entries(leagues).sort((a, b) =>
+                a[0].localeCompare(b[0])
+              );
               return (
                 <div
                   key={country}
@@ -133,7 +141,7 @@ export default async function Scoreboard({ searchParams }: Props) {
                     {country}
                   </label>
                   <div className="hidden peer-checked:flex flex-col gap-6">
-                    {Object.entries(leagues).map(([leagueName, matches]) => {
+                    {sortedLeagues.map(([leagueName, matches]) => {
                       const leagueId = matches[0].league.id;
                       return (
                         <div key={leagueName} className="mb-2">
